@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Мой билет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+    
+    body {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    background: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url("splash_background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: saturate(70%); 
+
+    z-index: -1;
+}
+    
+
+    .topbar {
+        padding: 18px;
+        font-size: 24px;
+        font-weight: 400;
+        background: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .display {
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, sans-serif;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .ui-text {
+        font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, sans-serif;
+        font-weight: 400;
+    }
+
+    .ticket-container {
+        padding: 16px;
+    }
+
+    .timer-box {
+        background: #3a3a3c;
+        color: white;
+        padding: 16px;
+        border-radius: 30px 30px 0 0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    .timer-box img {
+        width: 22px;
+        vertical-align: middle;
+        margin-right: 10px;
+        opacity: 0.95;
+    }
+
+    .time-values {
+        background: rgb(250, 250, 250);
+        padding: 26px;
+        border-radius: 0 0 20px 20px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .time-values div {
+        text-align: center;
+    }
+
+    .timer-number {
+        font-size: 32px;
+        font-weight: 400;
+        font-family: 'SF Pro Display', sans-serif;
+        letter-spacing: 2px;
+    }
+
+    .label {
+        font-size: 14px;
+        color: #777;
+        margin-top: 6px;
+    }
+
+    .info-box {
+    background: white;
+    margin-top: 0.8px;
+    border-radius: 20px 20px 30px 30px;
+    padding: 20px;
+    font-size: 19px;
+    text-align: center;   
+}
+
+    .btns {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .btn {
+        padding: 14px 22px;
+        border-radius: 32px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        font-family: 'SF Pro Text', sans-serif;
+    }
+
+    .white-btn {
+        background: white;
+        border: 2px solid #ddd;
+    }
+
+    .color-btn {
+        background: linear-gradient(45deg, #8b4dff, #ff4d6d);
+        color: white;
+    }
+
+    .navbar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        background: white;
+        border-top: 1px solid #ddd;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 14px;
+        color: #888;
+    }
+
+    .divider {
+    width: 2px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    color: #888;
+}
+
+.nav-item img {
+    width: 28px;
+    height: 28px;
+}
+
+.nav-item::after {
+    content: attr(data-text);
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.nav-item.active {
+    color: black;
+    font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .topbar { font-size: 20px; padding: 14px; }
+    .timer-box { padding: 12px; font-size: 16px; }
+    .time-values { padding: 18px; }
+    .timer-number { font-size: 28px; }
+    .btn { padding: 12px 18px; font-size: 16px; }
+    .navbar { height: 60px; font-size: 12px; }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">Мой билет</div> 
+
+<div class="ticket-container">
+
+    <div class="timer-box">
+        <div>
+            <img src="часы.png" alt="clock" style="width:30px; height:30px;">
+            <span id="time-now" style="font-size: 25px;" ></span>
+        </div>
+        <div id="date-now" style="font-size: 25px;"></div>
+    </div>
+
+    <div class="time-values" style="color: #3a3a3c;">
+        <div>
+            <div id="min" class="timer-number" style="font-size: 50px; font-weight: 400;">50</div>
+            <div class="label" style="color: #000000;">Минуты</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+            <div id="sec" class="timer-number" style="font-size: 50px; font-weight: 400;">00</div>
+            <div class="label" style="color: #000000;">Секунды</div>
+        </div>
+    </div>
+    
+    <div class="info-box ui-text" style="color: #3a3a3c;">
+        <span style="font-size:24px" id="ticket">
+            1 билет – 39 ₽  
+        </span>
+        
+        <span style="font-size:15px;color:#777;border:1px solid #ccc;border-radius:10px;padding:2px 6px;">
+            Проезд
+        </span>
+        <br><br>
+
+        <span style="opacity: 0.6; font-size:18px">
+            МПВ "ВПОПАТ №1"
+        </span>
+
+        <br>
+        <div style="
+        width:100%;
+        border-bottom: 1.5px dashed #d8d8d8;
+        margin: 20px 0;">
+        </div>
+        
+
+        <div id="num_auto"
+            class="display"
+            style="font-size:35px;margin-top:20px; font-weight: 400;">
+            АB 567 25
+        </div>
+
+        <div id="num_boos"
+            class="display"
+            style="font-size:35px;margin-top:20px; font-weight: 400;">
+            №11
+        </div>
+    </div>
+
+    <div class="btns">
+        <button class="btn white-btn" style="color: black;">ПРЕДЪЯВИТЬ</button>
+        <button class="btn color-btn">КУПИТЬ БИЛЕТ</button>
+    </div>
+
+</div>
+
+<div class="navbar">
+    <div class="nav-item active" style="filter: contrast(89%)" data-text="Мой билет">
+        <img src="билет.png">
+    </div>
+
+    <div class="nav-item" style="opacity: 0.7; filter: contrast(90%)"  data-text="История">
+        <img src="кошелек.png">
+    </div>
+
+    <div class="nav-item" style="opacity: 0.7;  filter: contrast(70%)" data-text="Оплата">
+        <img src="список.png">
+    </div>
+
+    <div class="nav-item" style="opacity: 0.7; filter: contrast(70%)" data-text="Меню">
+        <img src="меню.png">
+    </div>
+</div>
+
+<script src="BoosKart.js"> </script>
+
+</body>
+</html>
